@@ -14,7 +14,20 @@ if (!fs.existsSync('uploads')) {
 }
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: [
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+        'http://192.168.1.55:3000', // Your network IP for React app
+        'http://192.168.1.55:3001', // Your network IP for API server
+        'https://resume-customiser.web.app', // Your Firebase domain
+        'https://resume-customiser.firebaseapp.com', // Alternative Firebase domain
+        // Add ngrok URLs if needed for testing
+        'https://shiner-tender-virtually.ngrok-free.app',
+    ],
+    credentials: true
+}));
+
 app.use(express.json());
 app.use(express.static('public'));
 
@@ -24,7 +37,7 @@ app.get('/', (req, res) => {
     message: 'CV Customizer Backend is running!',
     version: '1.0.0',
     endpoints: [
-      'GET /',
+        'GET /',
       'POST /api/generate-cv'
     ]
   });
