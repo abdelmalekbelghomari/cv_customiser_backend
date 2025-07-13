@@ -3,8 +3,8 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 
-// Import routes
 const cvRoutes = require('./routes/cv');
+const aiAnalysisRoutes = require('./routes/ai-analysis');
 
 const app = express();
 
@@ -38,13 +38,15 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: [
         'GET /',
-      'POST /api/generate-cv'
+      'POST /api/generate-cv',
+      'POST /api/analyze-job-description'
     ]
   });
 });
 
 // Use CV routes
 app.use('/api', cvRoutes);
+app.use('/api', aiAnalysisRoutes);
 
 // Error handling middleware
 app.use((error, req, res, next) => {
